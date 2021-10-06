@@ -4,8 +4,8 @@ import csv
 import operator
 
 #load 
-file = os.path.join('..','PyPoll', 'Resources','PyPoll_Resources_election_data.csv')
-text = os.path.join('..','PyPoll','Analysis','election.Text')
+file = os.path.join('Resources','PyPoll_Resources_election_data.csv')
+text = os.path.join('Analysis','Election_Data_Summary.txt')
 
 #open csv path and reader
 
@@ -66,32 +66,28 @@ with open(file) as election_data:
  
     print("-------------------------")
 
-    print(f'Congratulations {winner_votes}!')
+#writes new csv in designated folder
+with open(text,'w') as f:
+    f.write("Election Results\n")
+    f.write("-------------------------\n")
+    f.write(f"Total Votes: {votes_tot}\n")
+    f.write("-------------------------\n")
+    for vote in votes:
+        candidate_votes = votes[vote]
+        #takes the number of votes per candidate and divides by the total votes casted
+        percent = candidate_votes/votes_tot
+
+        #this is to format the final percent value to one decimal point    
+        percent_format = "{:.1%}".format(percent)  
+        #prints the name of the candidate, the number of votes recieved, and percentage of votes received from total votes casted
+        f.write(f"{vote}:{percent_format}% ({candidate_votes})\n")
+    
+    f.write("-------------------------\n")
+    f.write(f"Winner: {winner_votes}\n")
+    f.write("-------------------------\n")
+    
 
     
 
 
-#print(f"winner: {winner}", "Resources", "PyPoll_Resources_election_data.csv")
-
-    
-
-
-      #  print(len(row[2]))
- #       candidate = row[2]
-
-  #      if candidate not in votes:
-         #   votes[candidate]=+1
-
- #   for candidate in votes:
- #       print(f'candidate votes {candidate, votes[candidate]}')
-
-    #print(f'Total votes {len(votes)}')
-    #print(f'All votes {sum(votes.values)}')
-
-   
-
-
-
-       
-      #  print(votes)
 
